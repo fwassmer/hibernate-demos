@@ -5,7 +5,7 @@ More specifically, this is based on Apache Karaf 3.0.5 and Apache Aries JPA.  Se
 chapter for more information!
 
 ## Running the Tutorial
-#simplified installation!
+###simplified installation, just run mvn clean install
 
 To run the tutorial, use the following commands in the Karaf console:
 
