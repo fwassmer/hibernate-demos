@@ -16,20 +16,21 @@
  */
 package org.hibernate.osgitest.command;
 
-import org.apache.felix.gogo.commands.Action;
-import org.apache.felix.gogo.commands.Command;
-import org.apache.felix.service.command.CommandSession;
+import org.apache.karaf.shell.api.action.Action;
+import org.apache.karaf.shell.api.action.Command;
+import org.apache.karaf.shell.api.action.lifecycle.Reference;
+import org.apache.karaf.shell.api.action.lifecycle.Service;
 import org.hibernate.osgitest.DataPointService;
 
-@Command(scope = "dp", name = "deleteAll")
+@Command(scope = "dp", name = "add")
+@Service
 public class DeleteAllCommand implements Action {
-private DataPointService dpService;
-    
-    public void setDpService(DataPointService dpService) {
-        this.dpService = dpService;
-    }
 
-    public Object execute(CommandSession session) throws Exception {
+    @Reference(optional = true)
+    private DataPointService dpService;
+    
+    @Override
+    public Object execute() throws Exception {
     	dpService.deleteAll();
         return null;
     }

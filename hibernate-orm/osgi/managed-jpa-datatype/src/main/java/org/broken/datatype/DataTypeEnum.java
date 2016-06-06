@@ -18,51 +18,12 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA  02110-1301, USA.
  */
-package org.hibernate.osgitest.entity;
+package org.broken.datatype;
 
-import org.broken.datatype.DataTypeEnum;
-import org.hibernate.envers.Audited;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+public enum DataTypeEnum {
 
-/**
- * @author Brett Meyer
- */
-@Entity
-@Audited
-public class DataPoint {
+	ONE,
+	TWO
 
-	@Id
-	@GeneratedValue
-	private long id;
-	
-	private String name;
-
-	private DataTypeEnum dataTypeEnum;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public DataTypeEnum getDataTypeEnum() {
-		return dataTypeEnum;
-	}
-
-	public void setDataTypeEnum(DataTypeEnum dataTypeEnum) {
-		this.dataTypeEnum = dataTypeEnum;
-	}
 }

@@ -19,15 +19,15 @@
 -->
 <blueprint default-activation="eager"
            xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-           xmlns:jpa="http://aries.apache.org/xmlns/jpa/v1.0.0"
-           xmlns:tx="http://aries.apache.org/xmlns/transactions/v1.0.0">
+           xmlns:jpa="http://aries.apache.org/xmlns/jpa/v2.0.0"
+           xmlns:tx="http://aries.apache.org/xmlns/transactions/v2.0.0">
+
+  <jpa:enable />
+  <tx:enable />
 
   <!-- This gets the container-managed EntityManager and injects it into the DataPointServiceImpl bean. -->
-  <bean id="dpService" class="org.hibernate.osgitest.DataPointServiceImpl">
-    <jpa:context unitname="managed-jpa" property="entityManager"/>
-    <tx:transaction method="*" value="Required"/>
-  </bean>
+  <bean id="dpService" class="org.hibernate.osgitest.DataPointServiceImpl"/>
+
   <service ref="dpService" interface="org.hibernate.osgitest.DataPointService"/>
 
   <!-- This demonstrates how to register your custom implementations of Hibernate extension points, such as
@@ -37,22 +37,4 @@
   <bean id="typeContributor" class="your.package.TypeContributorImpl"/>
   <service ref="typeContributor" interface="org.hibernate.metamodel.spi.TypeContributor"/> -->
 
-  <!-- This bundle makes use of Karaf commands to demonstrate core persistence operations.  Feel free to remove it. -->
-  <command-bundle xmlns="http://karaf.apache.org/xmlns/shell/v1.1.0">
-    <command>
-      <action class="org.hibernate.osgitest.command.AddCommand">
-        <property name="dpService" ref="dpService"/>
-      </action>
-    </command>
-    <command>
-      <action class="org.hibernate.osgitest.command.GetAllCommand">
-        <property name="dpService" ref="dpService"/>
-      </action>
-    </command>
-    <command>
-      <action class="org.hibernate.osgitest.command.DeleteAllCommand">
-        <property name="dpService" ref="dpService"/>
-      </action>
-    </command>
-  </command-bundle>
 </blueprint>

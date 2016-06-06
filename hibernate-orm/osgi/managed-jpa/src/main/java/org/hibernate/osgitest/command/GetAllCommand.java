@@ -16,28 +16,30 @@
  */
 package org.hibernate.osgitest.command;
 
-import java.util.List;
-
-import org.apache.felix.gogo.commands.Action;
-import org.apache.felix.gogo.commands.Command;
-import org.apache.felix.service.command.CommandSession;
+import org.apache.karaf.shell.api.action.Action;
+import org.apache.karaf.shell.api.action.Command;
+import org.apache.karaf.shell.api.action.lifecycle.Reference;
+import org.apache.karaf.shell.api.action.lifecycle.Service;
 import org.hibernate.osgitest.DataPointService;
 import org.hibernate.osgitest.entity.DataPoint;
 
-@Command(scope = "dp", name = "getAll")
-public class GetAllCommand implements Action {
-    private DataPointService dpService;
-    
-    public void setDpService(DataPointService dpService) {
-        this.dpService = dpService;
-    }
+import java.util.List;
 
-    public Object execute(CommandSession session) throws Exception {
-        List<DataPoint> dps = dpService.getAll();
-        for (DataPoint dp : dps) {
-            System.out.println(dp.getId() + ", " + dp.getName());
-        }
-        return null;
-    }
+
+@Command(scope = "dp", name = "get")
+@Service
+public class GetAllCommand implements Action {
+
+	@Reference(optional = true)
+	private DataPointService dpService;
+
+	@Override
+	public Object execute() throws Exception {
+		List<DataPoint> dps = dpService.getAll();
+		for (DataPoint dp : dps) {
+			System.out.println(dp.getId() + ", " + dp.getName() + ", " + dp.getDataTypeEnum().name());
+		}
+		return null;
+	}
 
 }

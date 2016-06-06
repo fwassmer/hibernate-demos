@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<features>
+<features xmlns="http://karaf.apache.org/xmlns/features/v1.3.0" name="hibernate-features">
 
-  <repository>mvn:org.hibernate/hibernate-osgi/5.0.5.Final/xml/karaf</repository>
+  <repository>mvn:org.hibernate/hibernate-osgi/5.2.0.Final/xml/karaf</repository>
 
   <feature name="hibernate-osgi-managed-jpa">
     <bundle>mvn:com.h2database/h2/1.3.170</bundle>
@@ -13,17 +13,17 @@
     features.xml.  However, after guidance from the Karaf and Aries teams, it was pulled out.
     This allows Hibernate OSGi to be portable and not be directly tied to Aries versions, instead having
     the user choose which to use. -->
-    <feature version="1.1.1">transaction</feature>
-    <feature version="2.1.0">jpa</feature>
+    <feature version="1.3.0">transaction</feature>
+    <feature version="2.3.0">jpa</feature>
     <!-- If using Aries JPA 2.0+, explicitly starting Aries JNDI is no longer necessary.  But, in Karaf 3.0.x and
     the 2.1.0 jpa feature (above), we're still using Aries JPA 1.0.x. -->
-    <feature version="3.0.5">jndi</feature>
+    <!--<feature version="3.0.5">jndi</feature>-->
 
 
-    <!--<feature version="5.0.5.Final">hibernate-orm</feature>-->
-    <feature version="5.0.5.Final">hibernate-envers</feature>
+    <feature version="5.2.0.Final">hibernate-envers</feature>
 
-    <!-- Finally, this demo's bundle: -->
+    <!-- Finally, this demo's bundles: -->
+    <bundle>mvn:org.broken/managed-jpa-datatype/1.0.0</bundle>
     <bundle>mvn:org.hibernate.osgi/managed-jpa/1.0.0</bundle>
   </feature>
 </features>

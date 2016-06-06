@@ -20,39 +20,36 @@
  */
 package org.hibernate.osgitest;
 
-import java.util.List;
+import org.hibernate.osgitest.entity.DataPoint;
 
 import javax.persistence.EntityManager;
-
-import org.hibernate.osgitest.entity.DataPoint;
+import javax.persistence.PersistenceContext;
+import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * @author Brett Meyer
  */
 public class DataPointServiceImpl implements DataPointService {
 
+	@PersistenceContext(unitName="managed-jpa")
 	private EntityManager entityManager;
 
+	@Transactional(Transactional.TxType.REQUIRED)
 	public void add(DataPoint dp) {
 		entityManager.persist( dp );
 		entityManager.flush();
 	}
 
+	@Transactional(Transactional.TxType.REQUIRED)
 	public List<DataPoint> getAll() {
 		return entityManager.createQuery( "select d from DataPoint d", DataPoint.class ).getResultList();
 	}
 
+	@Transactional(Transactional.TxType.REQUIRED)
 	public void deleteAll() {
 		entityManager.createQuery( "delete from DataPoint" ).executeUpdate();
 		entityManager.flush();
-	}
-
-	public EntityManager getEntityManager() {
-		return entityManager;
-	}
-
-	public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
 	}
 
 }
